@@ -22,9 +22,10 @@ endif()
 # Single Library (Final)
 # =========================
 add_library(loadcell_comm
-  loadcell_comm/loadcell_485.cpp
   serial_comm/SerialPort.cpp
   ring_buffer/ByteRingBuffer.cpp
+  loadcell_comm/loadcell_485.cpp
+  loadcell_comm/loadcell_exception.cpp
 )
 
 # (기존에 쓰던 링커 옵션이 꼭 필요하면 유지, 필요 없으면 삭제 가능)
