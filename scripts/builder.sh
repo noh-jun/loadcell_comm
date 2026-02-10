@@ -3,9 +3,9 @@ set -euo pipefail
 
 # Default values
 build_shared="ON"           # default: shared(.so)
-build_dir="build/weight_comm"
+build_dir="build/loadcell_comm"
 source_dir="source"
-install_dir="./install/weight_comm"     # install prefix (directory)
+install_dir="./install"     # install prefix (directory)
 
 usage() {
   cat <<EOF

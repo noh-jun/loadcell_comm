@@ -20,16 +20,12 @@ LoadCell485Exception::code_to_string(ResultCode code) const noexcept {
   switch (code) {
   case ResultCode::kOk:
     return "Ok";
+  case ResultCode::kFrameTooShort:
+    return "Frame Too Short";
   case ResultCode::kNoFrame:
     return "No Frame";
   case ResultCode::kIoReadFail:
     return "IO Read Fail";
-  case ResultCode::kIoWriteFail:
-    return "IO Write Fail";
-  case ResultCode::kFrameInvalid:
-    return "Frame Invalid";
-  case ResultCode::kSanityFail:
-    return "Sanity Fail";
   default:
     return "Unknown Error: " + std::to_string(static_cast<int>(code));
   }

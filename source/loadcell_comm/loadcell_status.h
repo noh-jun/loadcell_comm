@@ -24,11 +24,9 @@ struct LoadCellStatus {
 
 enum class ResultCode {
   kOk = 0,
-  kNoFrame = 1,
-  kIoReadFail = 2,
-  kIoWriteFail = 3,
-  kFrameInvalid = 4,
-  kSanityFail = 5
+  kFrameTooShort = 1,
+  kNoFrame = 2,
+  kIoReadFail = 3
 };
 } // namespace loadcell_comm
 

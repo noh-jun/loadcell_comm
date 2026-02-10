@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(loadcell_comm_485 LANGUAGES CXX)
+project(loadcell_comm_485 VERSION 1.0.0 LANGUAGES CXX)
 
 # ---- C++ 표준 ----
 set(CMAKE_CXX_STANDARD 17)
@@ -21,7 +21,7 @@ endif()
 # =========================
 # Single Library (Final)
 # =========================
-add_library(loadcell_485_comm
+add_library(loadcell_comm
   loadcell_comm/loadcell_485.cpp
   serial_comm/SerialPort.cpp
   ring_buffer/ByteRingBuffer.cpp
@@ -29,13 +29,13 @@ add_library(loadcell_485_comm
 
 # (기존에 쓰던 링커 옵션이 꼭 필요하면 유지, 필요 없으면 삭제 가능)
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  target_link_options(loadcell_485_comm
+  target_link_options(loadcell_comm
     PRIVATE -Wl,--no-as-needed
   )
 endif()
 
 # include 경로 (빌드/설치 분리)
-target_include_directories(loadcell_485_comm
+target_include_directories(loadcell_comm
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/loadcell_comm>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/serial_comm>
@@ -45,15 +45,15 @@ target_include_directories(loadcell_485_comm
     $<INSTALL_INTERFACE:include/loadcell_comm/rs485/ring_buffer>
 )
 
-set_target_properties(loadcell_485_comm PROPERTIES
-  VERSION 0.1.0
-  SOVERSION 0
+set_target_properties(loadcell_comm PROPERTIES
+  VERSION   ${PROJECT_VERSION}
+  SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
 # =========================
 # Install
 # =========================
-install(TARGETS loadcell_485_comm
+install(TARGETS loadcell_comm
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
@@ -64,7 +64,8 @@ install(FILES
   serial_comm/SerialConfig.h
   loadcell_comm/loadcell_485.h
   loadcell_comm/loadcell_status.h
-  DESTINATION include/loadcell_comm/rs485/loadcell_comm
+  loadcell_comm/loadcell_exception.h
+  DESTINATION include/loadcell_comm
 )
 
 # 아래가 필요하면 주석 해제 (디렉터리 단위 설치)

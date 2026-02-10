@@ -96,7 +96,7 @@ ResultCode LoadCell485::TryParseOneFrame_(LoadCellStatus &out_status) {
   const std::size_t buffer_size = ring_buffer_->Size();
   if(buffer_size < kMinFrameBytes) {
     SetLastError("Not enough data in buffer: (" + std::to_string(ring_buffer_->Size()) + " bytes)");
-    return ResultCode::kNoFrame;
+    return ResultCode::kFrameTooShort;
   }
 
   // 임시 버퍼에 복사
