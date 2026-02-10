@@ -1,5 +1,5 @@
-#ifndef BYTE_RING_BUFFER_HPP_
-#define BYTE_RING_BUFFER_HPP_
+#ifndef BYTE_RING_BUFFER_H_
+#define BYTE_RING_BUFFER_H_
 
 #include <cstddef>
 #include <cstdint>
@@ -60,10 +60,18 @@ public:
      */
     uint8_t At(std::size_t index) const;
 
+    /**
+     * @brief 앞쪽(oldest)부터 최대 size 바이트를 out에 복사한다. (버퍼에서 제거하지 않음)
+     * @param size 요청 바이트 수
+     * @param out 출력 벡터(해당 크기로 resize 후 overwrite)
+     * @return out에 실제로 채운 바이트 수
+     */
+    std::size_t CopyFront(std::size_t size, std::vector<uint8_t>& out) const;
+
 private:
     std::vector<uint8_t> buffer_;
     std::size_t head_ = 0;
     std::size_t size_ = 0;
 };
 
-#endif
+#endif // BYTE_RING_BUFFER_H_

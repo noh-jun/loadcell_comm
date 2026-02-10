@@ -1,4 +1,4 @@
-#include "SerialPort.hpp"
+#include "SerialPort.h"
 #include <cerrno>
 #include <cstring>
 #include <fcntl.h>

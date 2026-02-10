@@ -1,4 +1,4 @@
-#include "ByteRingBuffer.hpp"
+#include "ByteRingBuffer.h"
 
 #include <algorithm>
 #include <stdexcept>
@@ -56,4 +56,27 @@ uint8_t ByteRingBuffer::At(std::size_t index) const {
         throw std::out_of_range("ByteRingBuffer::At 범위 초과");
     }
     return buffer_[(head_ + index) % buffer_.size()];
+}
+
+std::size_t ByteRingBuffer::CopyFront(std::size_t size, std::vector<uint8_t>& out) const {
+    const std::size_t copy_size = std::min(size, size_);
+    out.resize(copy_size);
+
+    if (copy_size == 0) {
+        return 0;
+    }
+
+    const std::size_t first = std::min(copy_size, buffer_.size() - head_);
+    std::copy(buffer_.begin() + static_cast<long>(head_),
+              buffer_.begin() + static_cast<long>(head_ + first),
+              out.begin());
+
+    const std::size_t remain = copy_size - first;
+    if (remain > 0) {
+        std::copy(buffer_.begin(),
+                  buffer_.begin() + static_cast<long>(remain),
+                  out.begin() + static_cast<long>(first));
+    }
+
+    return copy_size;
 }

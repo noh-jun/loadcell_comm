@@ -62,7 +62,8 @@ install(TARGETS loadcell_485_comm
 # 헤더 설치 (필요 파일만 명시적으로 설치)
 install(FILES
   serial_comm/SerialConfig.h
-  loadcell_comm/loadcell_485.hpp
+  loadcell_comm/loadcell_485.h
+  loadcell_comm/loadcell_status.h
   DESTINATION include/loadcell_comm/rs485/loadcell_comm
 )
 
